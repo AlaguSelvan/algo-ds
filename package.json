@@ -1,0 +1,20 @@
+{
+  "name": "ds-algo-prep",
+  "version": "1.0.0",
+  "description": "",
+  "main": "two-number-sum.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlaguSelvan/algo-ds.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlaguSelvan/algo-ds/issues"
+  },
+  "homepage": "https://github.com/AlaguSelvan/algo-ds#readme"
+}
