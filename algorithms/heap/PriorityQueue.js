@@ -1,6 +1,14 @@
-class Heap {
-	constructor(arr) {
-		this.arr = arr
+class Node {
+	constructor(val, priority) {
+		this.val = val;
+		this.priority = priority;
+		this.insertTime = Date.now();
+	}
+}
+
+class PriorityQueue {
+	constructor() {
+		this.arr = []
 	}
 
 	// Method: heap.bubble
@@ -10,7 +18,7 @@ class Heap {
 		while(idx > 0) {
 			let parentIdx = Math.floor((idx - 1) / 2);
 			let parent = this.arr[parentIdx];
-			if(element <= parent) break;
+			if(element.priority <= parent.priority) break;
 			this.arr[idx] = parent;
 			this.arr[parentIdx] = element;
 			idx = parentIdx;
@@ -18,14 +26,15 @@ class Heap {
 	}
 
 	// Method: heap.insert
-	insert(element) {
-		this.arr.push(element)
+	enqueue(val, priority) {
+		const newNode = new Node(val, priority)
+		this.arr.push(newNode)
 		this.bubble()
 	}
 
 
 	// Method: heap.extract
-	extractMax() {
+	dequeue() {
 		let max = this.arr[0];
 		let end = this.arr.pop()
 		if(this.arr.length > 0) {
@@ -46,7 +55,7 @@ class Heap {
 			let leftChild, rightChild
 			if(leftChildIdx < this.arr.length) {
 				leftChild = this.arr[leftChildIdx]
-				if(leftChild > element) {
+				if(leftChild.priority > element.priority) {
 					swap = leftChildIdx;
 				}
 			}
@@ -54,8 +63,8 @@ class Heap {
 			if(rightChildIdx < this.arr.length) {
 				rightChild = this.arr[rightChildIdx]
 				if(
-					(swap === null && rightChild > element) ||
-					(swap !== null && rightChild > leftChild)
+					(swap === null && rightChild.priority > element.priority) ||
+					(swap !== null && rightChild.priority > leftChild.priority)
 				) {
 						swap = rightChildIdx;
 				}
@@ -65,16 +74,20 @@ class Heap {
 			this.arr[swap] = element;
 			idx = swap;
 		}
+
 	}
 }
 
-const arr = [41, 39, 33, 18, 27, 12, 55];
 
-const Heap = new heap(arr);
-Heap.insert(66)
-Heap.insert(15)
-console.log(Heap.arr)
-Heap.extractMax()
-console.log(Heap.arr)
-Heap.extractMax()
-console.log(Heap.arr)
+const priorityQueue = new PriorityQueue()
+
+priorityQueue.enqueue('coding', 99)
+priorityQueue.enqueue('food', 70)
+priorityQueue.enqueue('gym', 50)
+priorityQueue.enqueue('studies', 10)
+priorityQueue.enqueue('gaming', 4)
+priorityQueue.enqueue('sleep', 11)
+
+priorityQueue.dequeue()
+
+console.log(priorityQueue)
