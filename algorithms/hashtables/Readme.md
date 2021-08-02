@@ -7,3 +7,5 @@
 * A good hash should be fast, distribute keys uniformly, and be deterministic.
 * Seperate chaining and linear probing are two strategies used to deal with two keys that 
 hash to the same index.
+* searching, updating, deleting take O(1)
+* searching by values are going to take O(N)
