@@ -67,13 +67,48 @@ class Graph {
 		return stack
 	}
 
+	breadthFirstSearch(start) {
+		let stack = [start];
+		let visited = {};
+		let result = [];
+		visited[start] = true;
+		while(stack.length) {
+			let vertex = stack.shift();
+			result.push(vertex);
+				for(let edge of this.adjacencyList[vertex]) {
+					if(!visited[edge]) {
+						stack.push(edge);
+						visited[edge] = true;
+					}
+				}
+			}
+			return result;
+		}
+
+	depthFirstSearchIterative(start) {
+		let stack = [start];
+		let visited = {};
+		let result = []
+		visited[start] = true;
+		while(stack.length) {
+			let vertex = stack.pop();
+			visited[vertex] = true;
+			result.push(vertex);
+			for(let edge of this.adjacencyList[vertex]) {
+				if(!visited[edge]) {
+					stack.push(edge);
+					visited[edge] = true;
+				}
+			}
+		}
+		return result
+	}
+
 	traverse(vertex, stack, visited) {
 		if(!this.adjacencyList[vertex] || this.adjacencyList[vertex].length === 0) return
 		visited[vertex] = true;
 		stack.push(vertex)
 		for(let edge of this.adjacencyList[vertex]) {
-			console.log(stack)
-			console.log(edge)
 			if(!visited[edge]) {
 				this.traverse(edge, stack, visited)
 			}
@@ -104,10 +139,15 @@ g.addVertex('d')
 g.addEdge('a', 'b')
 g.addEdge('b', 'd')
 g.addEdge('c', 'd')
+g.addEdge('c', 'd')
 
 const dfs = g.depthFirstSearch('a')
+const dfsIt = g.depthFirstSearchIterative('a')
+const bfs = g.breadthFirstSearch('a')
 
 console.log(dfs)
+console.log(dfsIt)
+console.log(bfs)
 
 
 console.log(g.adjacencyList)

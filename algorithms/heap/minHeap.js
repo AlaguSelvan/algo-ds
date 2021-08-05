@@ -17,10 +17,8 @@ export class MinHeap {
 			if(parent >= element) {
 				this.arr[idx] = parent
 				this.arr[parentIdx] = element
-			} else {
-				break;
+				idx = parentIdx;
 			}
-			idx = parentIdx;
 		};
 	}
 
