@@ -60,8 +60,24 @@ class Graph {
 		delete this.adjacencyList[v2]
 	}
 
-	depthFirstSearch(node) {
-		
+	depthFirstSearch(start) {
+		let stack = [];
+		let visited = {};
+		this.traverse(start, stack, visited)
+		return stack
+	}
+
+	traverse(vertex, stack, visited) {
+		if(!this.adjacencyList[vertex] || this.adjacencyList[vertex].length === 0) return
+		visited[vertex] = true;
+		stack.push(vertex)
+		for(let edge of this.adjacencyList[vertex]) {
+			console.log(stack)
+			console.log(edge)
+			if(!visited[edge]) {
+				this.traverse(edge, stack, visited)
+			}
+		}
 	}
 
 }
@@ -69,17 +85,29 @@ class Graph {
 
 const g = new Graph()
 
-g.addVertex('john')
-g.addVertex('arthur')
-g.addVertex('dutch')
+// g.addVertex('john')
+// g.addVertex('arthur')
+// g.addVertex('dutch')
 
-g.addEdge('john', 'arthur')
-g.addEdge('john', 'dutch')
-g.addEdge('arthur', 'john')
+// g.addEdge('john', 'arthur')
+// g.addEdge('john', 'dutch')
+// g.addEdge('arthur', 'john')
 
-// g.removeEdge('arthur', 'john')
+// // g.removeEdge('arthur', 'john')
 
-g.removeVertices('arthur', 'john')
+// g.removeVertices('arthur', 'john')
+
+g.addVertex('a')
+g.addVertex('b')
+g.addVertex('c')
+g.addVertex('d')
+g.addEdge('a', 'b')
+g.addEdge('b', 'd')
+g.addEdge('c', 'd')
+
+const dfs = g.depthFirstSearch('a')
+
+console.log(dfs)
 
 
 console.log(g.adjacencyList)
