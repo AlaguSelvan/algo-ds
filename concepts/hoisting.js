@@ -15,7 +15,7 @@ function callTwo() {
     console.log(i);
 }
 
-
+// arrow functions are added only to code 
 const callThree = () => {
     var i = 3;
     console.log(i);

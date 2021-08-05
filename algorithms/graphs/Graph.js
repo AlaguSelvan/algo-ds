@@ -58,7 +58,10 @@ class Graph {
 		}
 
 		delete this.adjacencyList[v2]
+	}
 
+	depthFirstSearch(node) {
+		
 	}
 
 }
