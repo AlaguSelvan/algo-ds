@@ -2,7 +2,7 @@ class Node {
 	constructor(val, priority) {
 		this.val = val;
 		this.priority = priority;
-		this.insertTime = Date.now();
+		// this.insertTime = Date.now();
 	}
 }
 
