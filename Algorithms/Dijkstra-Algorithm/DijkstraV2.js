@@ -114,8 +114,9 @@ class WeightedGraph {
 			}
 			previous[value] = null;
 		}
-		while(nodes.queue.length) {
-			smallest = nodes.dequeue().vertex
+		while(nodes.arr.length) {
+			smallest = nodes.dequeue().val
+			console.log(smallest)
 			if(smallest === finish) {
 				// keep looping the previous previous values
 				while(previous[smallest]) {
