@@ -12,45 +12,45 @@ class SinglyLinkedList {
 		this.tail = null;
 		this.length = 0;
 	}
-	push(val) {
-		const newNode = new Node(val)
+	push(value) {
+		let newNode = new Node(value)
+		// If the list is empty set the head & tail to newNode
 		if(!this.head) {
 			this.head = newNode;
-			this.tail = this.head;
 		} else {
-
 			this.tail.next = newNode;
-			this.tail = newNode;
 		}
-		this.length += 1;
+		this.tail = newNode;
+		this.length++;
+		return newNode
 	}
 	pop() {
-		let current = this.head;
-		let newTail = current;
-		if(!current) return;
+		if(!this.length) return null;
+		let current = this.head
+		let tail = current;
 		while(current.next) {
-			newTail = current;
+			tail = current;
 			current = current.next;
 		}
-		this.tail = newTail;
-		this.tail.next = null;
+		tail.next = null;
+		this.tail = tail;
 		this.length--;
 		if(this.length === 0) {
 			this.head = null;
 			this.tail = null;
 		}
-		return current
+		return current;
 	}
 }
 
-const list = new SinglyLinkedList()
-list.push(1)
-list.push(2)
-list.push(3)
-list.push(4)
-list.push(5)
-list.push(6)
-list.push(7)
-list.pop()
-list.pop()
+const list = new SinglyLinkedList();
+list.push(1);
+list.push(2);
+list.push(3);
+list.pop();
+list.pop();
+list.pop();
 console.log(list)
+
+// [{val: 1, next: {val: 2, next: null}}, {val: 2, next: null}]
+// 
