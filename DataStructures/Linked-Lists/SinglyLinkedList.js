@@ -14,7 +14,6 @@ class SinglyLinkedList {
 	}
 	push(value) {
 		let newNode = new Node(value)
-		// If the list is empty set the head & tail to newNode
 		if(!this.head) {
 			this.head = newNode;
 		} else {
@@ -46,10 +45,6 @@ class SinglyLinkedList {
 const list = new SinglyLinkedList();
 list.push(1);
 list.push(2);
-list.push(3);
-list.pop();
-list.pop();
-list.pop();
 console.log(list)
 
 // [{val: 1, next: {val: 2, next: null}}, {val: 2, next: null}]
