@@ -114,8 +114,9 @@ class WeightedGraph {
 			}
 			previous[value] = null;
 		}
-		while(nodes.queue.length) {
-			smallest = nodes.dequeue().vertex
+		while(nodes.arr.length) {
+			smallest = nodes.dequeue().val
+			console.log(smallest)
 			if(smallest === finish) {
 				// keep looping the previous previous values
 				while(previous[smallest]) {
@@ -125,7 +126,6 @@ class WeightedGraph {
 				break;
 				// return shortest path && update distances
 			} else if(smallest && distances[smallest] !== Infinity) {
-				
 				for(let neighbor of this.adjacencyList[smallest]) {
 					let candidate = distances[smallest] + neighbor.distance;
 					let nextNeighbor = neighbor.node
