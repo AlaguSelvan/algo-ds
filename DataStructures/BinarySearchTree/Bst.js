@@ -36,21 +36,28 @@ class BinarySearchTree {
 
 	// Iterative approach Time O(log(n)) Space O(1)
 	insert(value) {
-		let root = this.root
+		let currentNode = this.root;
 		let newNode = new Node(value);
-		while(true) {
-			if(newNode.value < root.value) {
-				if(!root.value.left) {
-					root.value.left = newNode;
-					return this;
+		if(!currentNode) {
+			this.root = newNode
+			return this;
+		} else {
+			while(true) {
+				if(newNode.value <= currentNode.value) {
+					if(!currentNode.left) {
+						currentNode.left = newNode
+						return this;
+					} else {
+						currentNode = currentNode.left;
+					}
+				} else if (newNode.value > currentNode.value) {
+					if(!currentNode.right) {
+						currentNode.right = newNode;
+						return this;
+					} else {
+						currentNode = currentNode.right;
+					}
 				}
-				root = root.left;
-			} else if(newNode.value > root.value) {
-				if(!root.value.left) {
-					root.value.left = newNode;
-					return this;
-				}
-				root = root.right;
 			}
 		}
 	}
@@ -71,6 +78,23 @@ class BinarySearchTree {
 		return false;
 	}
 
+	// O(N) TIME 0(N) SPACE
+	branchSums(root = this.root) {
+		let sums = []
+		this.calculateBranchSum(root, 0, sums)
+		return sums
+	}
+
+	calculateBranchSum(node, runningSum, sums) {
+		if(!node) return;
+		let newRunningSum = runningSum + node.value;
+		if(!node.left && !node.right) {
+			sums.push(newRunningSum)
+		}
+		this.calculateBranchSum(node.left, newRunningSum, sums)
+		this.calculateBranchSum(node.right, newRunningSum, sums)
+	}
+
 	// Average Time O(log(n)) Space O(log(n))
 	// Worst Time O(n) Space O(n)
 	// TODO: Implement
@@ -84,3 +108,18 @@ class BinarySearchTree {
 	}
 
 }
+
+const bst = new BinarySearchTree();
+bst.insert(10);
+bst.insert(15);
+bst.insert(21);
+bst.insert(9);
+bst.insert(8);
+bst.insert(5);
+bst.insert(3);
+bst.insert(2);
+bst.insert(2);
+
+const op = bst.branchSums()
+
+console.log(op)
