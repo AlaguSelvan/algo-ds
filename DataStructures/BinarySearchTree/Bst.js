@@ -1,3 +1,5 @@
+const Queue = require('../Queue/Queue')
+
 class Node {
 	constructor(value) {
 		this.value = value;
@@ -6,8 +8,6 @@ class Node {
 		// this.depth = null; // Not needed for BST
 	}
 }
-
-
 class BinarySearchTree {
 	constructor() {
 		this.root = null;
@@ -107,6 +107,17 @@ class BinarySearchTree {
 		
 	}
 
+	Bst() {
+		const queue = new Queue();
+		const visited = []
+		queue.enqueue(this.root)
+		while(queue.length) {
+			for(let q of queue) {
+				
+			}
+			queue.dequeue()
+		}
+	}
 }
 
 const bst = new BinarySearchTree();
@@ -122,4 +133,4 @@ bst.insert(2);
 
 const op = bst.branchSums()
 
-console.log(op)
+module.exports = BinarySearchTree;

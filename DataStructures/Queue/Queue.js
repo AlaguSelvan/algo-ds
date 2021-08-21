@@ -24,6 +24,7 @@ class Queue {
 		}
 		return ++this.size;
 	}
+
 	dequeue() {
 		let temp = this.first;
 		if(!this.first) return null;
@@ -37,3 +38,6 @@ class Queue {
 		return temp.value;
 	}
 }
+
+
+module.exports = Queue
