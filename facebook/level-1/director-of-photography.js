@@ -1,4 +1,3 @@
-
 /**
  * @param {number} N
  * @param {string} C
@@ -7,6 +6,6 @@
  * @return {number}
  */
 function getArtisticPhotographCount(N, C, X, Y) {
-  // Write your code here
-  return 0;
+	// Write your code here
+	return 0;
 }

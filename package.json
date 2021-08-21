@@ -1,20 +1,29 @@
 {
-  "name": "ds-algo-prep",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AlaguSelvan/algo-ds.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AlaguSelvan/algo-ds/issues"
-  },
-  "homepage": "https://github.com/AlaguSelvan/algo-ds#readme"
+	"name": "ds-algo-prep",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"format": "prettier --write \"./**/**/*.{js,ts}\""
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/AlaguSelvan/algo-ds.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/AlaguSelvan/algo-ds/issues"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "npm run format && git add -A ."
+		}
+	},
+	"homepage": "https://github.com/AlaguSelvan/algo-ds#readme",
+	"dependencies": {
+		"husky": "^7.0.1"
+	}
 }

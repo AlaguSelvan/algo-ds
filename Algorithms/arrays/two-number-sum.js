@@ -31,30 +31,27 @@
 // approach 3
 // time (o(n log(n))) space o(1)
 function twoNumberSum(array, targetSum) {
-	array.sort((a, b) => a - b)
+	array.sort((a, b) => a - b);
 	let left = 0;
 	let right = array.length - 1;
-	while(left < right) {
+	while (left < right) {
 		let firstNum = array[left];
 		let secondNum = array[right];
 		let sum = firstNum + secondNum;
-		if(sum === targetSum) {
-			return [firstNum, secondNum]
-		}
-		else if(sum > targetSum) {
+		if (sum === targetSum) {
+			return [firstNum, secondNum];
+		} else if (sum > targetSum) {
 			right--;
 		} else {
-			left ++
+			left++;
 		}
 	}
-	return []
+	return [];
 }
-
 
 let array = [-1, -2, 1, 5, -6, 9, 8, 11];
 targetSum = 13;
 
-const output  = twoNumberSum(array, targetSum)
+const output = twoNumberSum(array, targetSum);
 
-
-console.log(output)
+console.log(output);

@@ -5,7 +5,6 @@ class Node {
 	}
 }
 
-
 class Queue {
 	constructor() {
 		this.head = null;
@@ -15,7 +14,7 @@ class Queue {
 
 	enqueue(val) {
 		const newNode = new Node(val);
-		if(!this.first) {
+		if (!this.first) {
 			this.first = newNode;
 			this.last = newNode;
 		} else {
@@ -27,8 +26,8 @@ class Queue {
 
 	dequeue() {
 		let temp = this.first;
-		if(!this.first) return null;
-		if(this.size === 1) {
+		if (!this.first) return null;
+		if (this.size === 1) {
 			this.first = null;
 			this.last = null;
 		} else {
@@ -39,5 +38,4 @@ class Queue {
 	}
 }
 
-
-module.exports = Queue
+module.exports = Queue;
