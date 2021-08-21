@@ -18,7 +18,10 @@
 		"url": "https://github.com/AlaguSelvan/algo-ds/issues"
 	},
 	"homepage": "https://github.com/AlaguSelvan/algo-ds#readme",
-	"dependencies": {
-		"husky": "^7.0.1"
+	"dependencies": {},
+	"devDependencies": {
+		"husky": "^7.0.1",
+		"lint-staged": "^11.1.2",
+		"prettier": "^2.3.2"
 	}
 }
