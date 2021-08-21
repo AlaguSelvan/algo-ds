@@ -17,11 +17,6 @@
 	"bugs": {
 		"url": "https://github.com/AlaguSelvan/algo-ds/issues"
 	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "npm run format && git add -A ."
-		}
-	},
 	"homepage": "https://github.com/AlaguSelvan/algo-ds#readme",
 	"dependencies": {
 		"husky": "^7.0.1"
