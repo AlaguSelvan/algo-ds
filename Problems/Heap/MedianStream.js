@@ -1,192 +1,209 @@
 // Add any extra import statements you may need here
 
-
-// Add any helper functions you may need here
 class MaxHeap {
-  constructor() {
-    this.arr = []
-  }
-  enqueue(value) {
-    this.arr.push(value)
-    this.bubble()
-  }
-  peek() {
-    return this.arr[0]
-  }
-  
-  dequeue() {
-    let max = this.arr[0];
-    let end = this.arr.pop();
-    if(this.arr.length > 0) {
-      this.arr[0] = end();
-      this.sinkUp()
-    }    
-  }
-  
-  bubbleUp() {
-    let idx = this.arr.length - 1;
-    let element = this.arr[idx];
-    while(idx > 0) {
-      let parentIdx = (idx - 1) / 2;
-      let parent = this.arr[parentIdx];
-      if(element > parent) {
-        this.arr[idx] = parent;
-        this.arr[parentIdx] = element
-        idx = parentIdx;
-      } else {
-        break;
-      }
-    }
-  }
-  
-  sinkUp() {
-    let idx = 0;
-    let element = this.arr[idx];
-    while(true) {
-      let leftChildIdx = 2 * idx + 1;
-      let rightChildIdx = 2 * idx + 2;
-      let leftChild, rightChild;
-      let swap = null;
-      if(leftChildIdx < this.arr.length) {
-        let leftChild = this.arr[leftChildIdx];
-        if(leftChild > element) {
-          swap = leftChildIdx;
-        }
-      }
-      if(rightChildIdx > this.arr.length) {
-        let leftChild = this.arr[leftChildIdx];
-        let rightChild = this.arr[rightChildIdx];
-        if((swap === null && rightChildIdx > element) || (swap !== null && rightChild > leftChild)) {
-          swap = rightChildIdx;
-        }
-      }
-      if(!swap) break;
-      this.arr[idx] = this.arr[swap];
-      this.arr[swap] = element;
-    }
-  }
- 
-  isEmpty() {
-    return this.arr.length > 0
-  }
-  size() {
-    return this.arr.length;
-  }
-  top() {
-    return this.arr[0]
-  }
+	constructor() {
+		this.arr = [];
+	}
+
+	// Method: heap.bubble
+	bubble() {
+		let idx = this.arr.length - 1;
+		let element = this.arr[idx];
+		while (idx > 0) {
+			let parentIdx = Math.floor((idx - 1) / 2);
+			let parent = this.arr[parentIdx];
+			if (element <= parent) break;
+			this.arr[idx] = parent;
+			this.arr[parentIdx] = element;
+			idx = parentIdx;
+		}
+	}
+
+	// Method: heap.insert
+	push(val) {
+		this.arr.push(val);
+		this.bubble();
+	}
+
+	// Method: heap.extract
+	pop() {
+		let max = this.arr[0];
+		let end = this.arr.pop();
+		if (this.arr.length > 0) {
+			this.arr[0] = end;
+			this.sinkDown();
+		}
+		return max;
+	}
+
+	size() {
+		return this.arr.length
+	}
+
+	peek() {
+		return this.arr[0]
+	}
+
+	// Method: heap.sinkDown
+	sinkDown() {
+		let idx = 0;
+		let element = this.arr[0];
+		while (true) {
+			let leftChildIdx = 2 * idx + 1;
+			let rightChildIdx = 2 * idx + 2;
+			let swap = null;
+			let leftChild, rightChild;
+			if (leftChildIdx < this.arr.length) {
+				leftChild = this.arr[leftChildIdx];
+				if (leftChild > element) {
+					swap = leftChildIdx;
+				}
+			}
+
+			if (rightChildIdx < this.arr.length) {
+				rightChild = this.arr[rightChildIdx];
+				if (
+					(swap === null && rightChild > element) ||
+					(swap !== null && rightChild > leftChild)
+				) {
+					swap = rightChildIdx;
+				}
+			}
+			if (swap === null) break;
+			this.arr[idx] = this.arr[swap];
+			this.arr[swap] = element;
+			idx = swap;
+		}
+	}
 }
 
 class MinHeap {
-  constructor() {
-    this.arr = []
-  }
-  enqueue(value) {
-    this.arr.push(value)
-    this.bubbleUp()
-  }
-  
-  dequeue() {
-    let value = this.arr.pop()
-    this.arr[0] = value;
-    this.bubbleDown();
-  }
-  
-  peek() {
-    return this.arr[0]
-  }
-  isEmpty() {
-    return this.arr.length > 0
-  }
-  
-  bubbleUp() {
-    let idx = this.arr.length - 1;
-    let element = this.arr[idx];
-    while(idx > 0) {
-      let parentIdx = (idx - 1) / 2;
-      let parent = this.arr[parentIdx];
-      if(element < parent) {
-        this.arr[idx] = parent;
-        this.arr[parentIdx] = element
-        idx = parentIdx;
-      } else {
-        break;
-      }
-    }
-  }
-  
-  bubbleDown() {
-    let idx = 0;
-    let element = this.arr[idx];
-    while(true) {
-      let leftChildIdx = 2 * idx + 1;
-      let rightChildIdx = 2 * idx + 2;
-      let leftChild, rightChild;
-      let swap = null;
-      if(leftChildIdx > this.arr.length) {
-        let leftChild = this.arr[leftChildIdx];
-        if(leftChild < element) {
-          swap = leftChildIdx;
-        }
-      }
-      if(rightChildIdx < this.arr.length) {
-        let leftChild = this.arr[leftChildIdx];
-        let rightChild = this.arr[rightChildIdx];
-        if((swap === null && rightChildIdx < element) || (swap !== null && rightChild < leftChild)) {
-          swap = rightChildIdx;
-        }
-      }
-      if(!swap) break;
-      this.arr[idx] = this.arr[swap];
-      this.arr[swap] = element;
-    }
-  }
+	constructor() {
+		this.arr = [];
+	}
+
+	push(element) {
+		this.arr.push(element);
+		this.bubbleUp();
+	}
+
+	
+	size() {
+		return this.arr.length
+	}
+
+	peek() {
+		return this.arr[0]
+	}
+
+	bubbleUp() {
+		let idx = this.arr.length - 1;
+		let element = this.arr[idx];
+		while (idx > 0) {
+			let parentIdx = Math.floor((idx - 1) / 2);
+			let parent = this.arr[parentIdx];
+			if (parent >= element) {
+				this.arr[idx] = parent;
+				this.arr[parentIdx] = element;
+				idx = parentIdx;
+			}
+		}
+	}
+
+	pop() {
+		let min = this.arr[0];
+		this.arr[0] = this.arr[this.arr.length - 1];
+		this.arr.pop();
+		this.bubbleDown();
+		return min;
+	}
+
+	bubbleDown() {
+		let idx = 0;
+		let element = this.arr[0];
+		while (true) {
+			let leftChildIdx = idx * 2 + 1;
+			let rightChildIdx = idx * 2 + 2;
+			let leftChild, rightChild;
+			let swap = null;
+			if (leftChildIdx < this.arr.length) {
+				leftChild = this.arr[leftChildIdx];
+				if (leftChild > element) {
+					swap = leftChildIdx;
+				}
+			}
+
+			if (rightChild < this.arr.length) {
+				if (
+					(swap === null && rightChild < element) ||
+					(swap !== null && rightChild < firstChild)
+				) {
+					swap = rightChildIdx;
+				}
+			}
+			if (swap === null) break;
+			this.arr[idx] = this.arr[swap];
+			this.arr[swap] = element;
+		}
+	}
+}
+
+const addNumber = (item, minHeap, maxHeap) => {
+	if(maxHeap.size() === 0 || item < maxHeap.peek()) {
+		maxHeap.push(item);
+	} else {
+		minHeap.push(item);
+	}
+}
+
+const rebalance = (lowers, highers) => {
+	let biggerHeap = lowers.size() > highers.size() ? lowers : highers;
+	let smallerHeap = lowers.size() < highers.size() ? lowers : highers;
+	const diff = biggerHeap.size() - smallerHeap.size()
+	if(diff <= 1) return
+	let temp = []
+	if(diff >= 2) {
+		const val = biggerHeap.pop()
+		if(!val) return
+		// temp.push(val)
+		smallerHeap.push(val);
+	} else {
+		return
+	}
+	// temp.forEach(item => {
+	// 	smallerHeap.push(item)
+	// })
+	console.log(temp)
+}
+
+const getMedian = (minHeap, maxHeap) => {
+	let biggerHeap = maxHeap.size() > minHeap.size() ? maxHeap : minHeap;
+	let smallerHeap= maxHeap.size() > minHeap.size() ? minHeap : maxHeap;
+	if(biggerHeap.size() === smallerHeap.size()) {
+		return (biggerHeap.peek() + smallerHeap.peek()) / 2;
+	} else {
+		return biggerHeap.peek();
+	}
 }
 
 
 
 function findMedian(arr) {
   // Write your code here
-	let q1 = new MaxHeap();
-	let q2 = new MinHeap();
-	function insert(num) {
+	let maxHeap = new MaxHeap();
+	let minHeap = new MinHeap();
+	let medians = [];
+	let idx = 0;
 
-	if(q1.isEmpty() || num <= q2.peek())
-		q1.add(num);
-	else
-		q2.add(num);
-
-	if(q1.size() > q2.size() + 1)
-		q2.add(q1.poll());
-	else if(maxHeap.size() < minHeap.size())
-		maxHeap.add(minHeap.poll());
-
-	if(minHeap.size() == maxHeap.size())
-		median = (minHeap.peek() + maxHeap.peek()) / 2.0;
-	else if(minHeap.size() < maxHeap.size())
-		median = maxHeap.peek();
-	else
-		median = minHeap.peek();
-
-	return arr;
-}
-
-
-	function getMedian() {
-		return median;
+	for(let value of arr) {
+		addNumber(value, maxHeap, minHeap);
+		rebalance(maxHeap, minHeap);
+		medians[idx] = getMedian(maxHeap, minHeap);
+		idx++
 	}
-    let output = [arr.length];
-    for(let i = 0 ; i < arr.length; i++) {
-      insert(arr[i]);
-      if(i == 0) {
-        output[i] = arr[0];
-        continue;
-      }
-      
-      output[i] = getMedian();
-    }
-    return output;
-  
+
+	return medians
+
 
 
 }

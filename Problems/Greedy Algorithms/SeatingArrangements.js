@@ -6,28 +6,20 @@
 
 function minOverallAwkwardness(arr) {
   // Write your code here
-	let res = new Array(arr.length).fill(0);
-	let left = true;
-	let max = Number.MIN_SAFE_INTEGER;
-	
-	arr.sort((a, b) => a - b);
-	
-	for (let i = 0; i < arr.length; i++) {
-		if (left) {
-			res[i/2] = arr[i];
-		} else {
-			res[arr.length - 1 - i/2] = arr[i];
-		}
-		left = !left;
-	}
-	
-	for (let i = 0; i < res.length - 1; i++) {
-		max = Math.max(max, Math.abs(res[i] - res[i + 1]));
-	}
-	return max;
+  arr.sort((a, b) => a - b); // Sorting Ascending order O(n log(n))
+  // console.log(arr);
+  const length = arr.length;
+  let diff = arr[1] - arr[0];
+  // console.log(diff);
+  for (let i = 2; i < length; i++) {
+    // O(n)
+    diff = Math.max(diff, arr[i] - arr[i - 2]);
+    // console.log(diff);
+  }
+  diff = Math.max(diff, arr[length - 1] - arr[length - 2]);
+  // console.log(diff);
+  return diff;
 }
-
-
 
 
 
