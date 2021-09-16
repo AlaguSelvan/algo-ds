@@ -1,95 +1,48 @@
 // Add any extra import statements you may need here
 
 
-// Add any helper functions you may need here
-
-// def min_length_substring(s, t):
-//   # Write your code here
-//   maxLength = len(s)+1
-//   q = []
-//   len_t = len(t)
-//   counts = {}
-//   for i in t:
-//     counts[i] = 1 if i not in counts else counts[i]+1
-  
-//   for i in range(len(s)):
-//     if s[i] in counts:
-//       if len(q) > 0 and s[i] == s[q[0]] and counts[s[i]] == 0:
-//         q.pop(0)
-//         q.append(i)
-//         while counts[s[q[0]]] < 0:
-//           counts[s[q[0]]]+=1
-//           q.pop(0)
-//       else:
-//         counts[s[i]]-=1
-//         q.append(i)
-//         if counts[s[i]] >= 0:
-//           len_t-=1
-      
-//       if len_t == 0:
-//         length = q[-1] - q[0] + 1
-//         if length < maxLength:
-//           maxLength = length
-//         len_t+=1
-//         counts[s[q[0]]]+=1
-//         q.pop(0)
-//         while counts[s[q[0]]] < 0:
-//           counts[s[q[0]]]+=1
-//           q.pop(0)
-//   if maxLength == len(s)+1:
-//     return -1
-//   else:
-//     return maxLength
-
-
 
 function minLengthSubstring(s, t) {
   // Write your code here
-  maxLength = s.length + 1;
-	let q = []
-	let len_t = t.length;
-	let counts = {}
-	for (let i of t) {
-		counts[i] = counts[i] ? 1 : counts[i]+1
+	let map = new Map();
+	for(let i = 0; i < t.length; i++){
+		let char = t.charAt(i);
+		let val = map.get(char) || 0;
+		map.set(char, val + 1);
 	}
-	for (let i of s) {
-			if (counts[s[i]]) {
-				if (q.length > 0 && s[i] == s[q[0]] && counts[s[i]] === 0) {
-					q.pop(0)
-					q.append(i)
-					while (counts[s[q[0]]] < 0)
-						counts[s[q[0]]]+=1
-						q.pop(0)
-				} else {
-					counts[s[i]]-=1
-					q.append(i)
-					if (counts[s[i]] >= 0) {
-						len_t-=1
-					}
-				}
-				
-				if (len_t == 0) {
-					let length = q[-1] - q[0] + 1
-					if (length < maxLength) {
-						maxLength = length
-					}
-					len_t+=1
-					counts[s[q[0]]]+=1
-					q.pop(0)
-					while (counts[s[q[0]]] < 0) {
-						counts[s[q[0]]]+=1
-						q.pop(0)
-					}
-				}
+	
+	let i = 0;
+	let j = 0;
+	let left = 0;
+	let right = s.length - 1;
+	let count = map.size;
+	let min = s.length;
+	let found = false;
+
+	while(j < s.length) {
+		let endChar = s.charAt(j++);
+		if(map.has(endChar)) {
+			map.set(endChar, map.get(endChar) - 1);
+			if(map.get(endChar) === 0) count -= 1;
+		}
+		if(count > 0) continue;
+		while(count === 0) {
+			let startChar = s.charAt(i++);
+			if(map.has(startChar)) {
+				map.set(startChar, map.get(startChar) + 1);
+				if(map.get(startChar) > 0) count += 1;
 			}
 		}
-	
-	if (maxLength === s.length + 1) {
-		return -1
-	} else {
-		return maxLength
+		if((j - i) < min) {
+			left = i;
+			right = j;
+			min = j - i;
+			found = true;
+		}
 	}
 
+	let len = s.substring(left - 1, right).length;
+	return !found ? - 1 : len;
 }
 
 
