@@ -5,9 +5,40 @@
 
 
 function findPositions(arr, x) {
-  // Write your code here
-  
+// Write your code here
+	const len = arr.length;	
+	let head = 0;
+
+	const poped = []; //Map will index and the poped out iteration;
+	for(let i = 0; i < x; i++) { // i+1 is the iteration
+		let j = 0;
+		let maxPos = head;
+		let maxVal = arr[head];
+
+		let r = Math.min(x, len - poped.length);
+		while(j < r) { // actual magic happens here
+			const val = arr[head];
+			if(val === -1) {
+				head = (head+1) % len;
+				continue; // This ele is popped
+			}
+			if(val > maxVal)	{
+				maxPos = head;
+				maxVal = val;
+			}
+			if(val > 0) {
+				arr[head] = val - 1;
+			}
+			head = (head+1) % len;
+			j++;
+
+		}
+		arr[maxPos] = -1;
+		poped.push(maxPos + 1);
+	}
+	return poped;
 }
+
 
 
 
