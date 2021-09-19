@@ -4,13 +4,13 @@
 
 function numberOfWays(arr, k) {
   // Write your code here
-  const hashMap = {};
+  const map = new Map();
   let count = 0;
-  arr.map((ar) => (hashMap[ar] ? hashMap[ar]++ : (hashMap[ar] = 1)));
+  arr.map((ar) => map.has(ar) ? map.set(ar, map.get(ar) + 1) : map.set(ar, 1));
   arr.map((current) => {
     const targetsum = k - current;
-    if (targetsum in hashMap) {
-      count += hashMap[targetsum];
+    if (map.has(targetsum)) {
+      count += map.get(targetsum);
     }
     if (targetsum === current) {
       count--;

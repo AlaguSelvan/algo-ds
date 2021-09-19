@@ -8,7 +8,7 @@ class MaxHeap {
 
   enqueue(value) {
     this.arr.push(value);
-    this.bubble();
+    this.bubbleUp();
   }
 
   peek() {
@@ -156,11 +156,11 @@ function findMedian(arr) {
   const q2 = new MinHeap();
 
   for (let i = 0; i < arr.length; i++) {
-    insert(arr[i]);
+    insert(arr[i], q1, q2);
   }
 }
 
-function insert(value) {
+function insert(value, q1, q2) {
   if (q1.isEmpty || q1.top() >= value) {
     q1.enqueue(value);
   }

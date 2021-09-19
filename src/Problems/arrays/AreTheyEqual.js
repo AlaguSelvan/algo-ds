@@ -2,18 +2,18 @@
 
 // Add any helper functions you may need here
 
-function areTheyEqual(array_a, array_b) {
+
+function areTheyEqual(array_a, array_b){
   // Write your code here
-  const hash = {};
-  array_a.map((arr) => {
-    hash[arr] ? hash[arr]++ : (hash[arr] = 1);
-  });
-  array_b.map((arr) => {
-    if (hash[arr] <= 0) return false;
+  let hash = {};
+  array_a.map(arr => hash[arr] ? hash[arr]++ : hash[arr] = 1);
+  array_b.map(arr => {
+    let prev = hash[arr]
+    if(prev <= 0) return false;
     hash[arr]--;
-  });
-  for (const keys in hash) {
-    if (hash[keys] > 0) return false;
+  })
+  for(let key in hash) {
+    if(hash[key] > 0) return false;
   }
   return true;
 }
@@ -45,11 +45,11 @@ function check(expected, output) {
   test_case_number++;
 }
 
-const array_a_1 = [1, 2, 3, 4];
-const array_b_1 = [1, 4, 3, 2];
-const expected_1 = true;
-const output_1 = areTheyEqual(array_a_1, array_b_1);
-check(expected_1, output_1);
+// const array_a_1 = [1, 2, 3, 4];
+// const array_b_1 = [1, 4, 3, 2];
+// const expected_1 = true;
+// const output_1 = areTheyEqual(array_a_1, array_b_1);
+// check(expected_1, output_1);
 
 const array_a_2 = [1, 2, 3, 4];
 const array_b_2 = [1, 4, 3, 3];

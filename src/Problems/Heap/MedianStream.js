@@ -124,8 +124,8 @@ class MinHeap {
     while (true) {
       const leftChildIdx = idx * 2 + 1;
       const rightChildIdx = idx * 2 + 2;
-      let leftChild; let
-        rightChild;
+      let leftChild;
+      let rightChild;
       let swap = null;
       if (leftChildIdx < this.arr.length) {
         leftChild = this.arr[leftChildIdx];
@@ -136,8 +136,7 @@ class MinHeap {
 
       if (rightChild < this.arr.length) {
         if (
-          (swap === null && rightChild < element)
-					|| (swap !== null && rightChild < firstChild)
+          (swap === null && rightChild < element) || (swap !== null && rightChild < firstChild)
         ) {
           swap = rightChildIdx;
         }
@@ -149,37 +148,30 @@ class MinHeap {
   }
 }
 
-const addNumber = (item, minHeap, maxHeap) => {
-  if (maxHeap.size() === 0 || item < maxHeap.peek()) {
-    maxHeap.push(item);
+function addNumber(item, lowers, highers) {
+  if (lowers.size() === 0 || item < lowers.peek()) {
+    lowers.push(item);
   } else {
-    minHeap.push(item);
+    highers.push(item);
   }
 };
 
-const rebalance = (lowers, highers) => {
-  const biggerHeap = lowers.size() > highers.size() ? lowers : highers;
-  const smallerHeap = lowers.size() < highers.size() ? lowers : highers;
-  const diff = biggerHeap.size() - smallerHeap.size();
-  if (diff <= 1) return;
-  const temp = [];
+function rebalance(lowers, highers) {
+  let biggerHeap = lowers.size() > highers.size() ? lowers : highers;
+  let smallerHeap = lowers.size() < highers.size() ? lowers : highers;
+  const diff = biggerHeap.size() - smallerHeap.size()
+  let res = []
   if (diff >= 2) {
-    const val = biggerHeap.pop();
-    if (!val) return;
-    // temp.push(val)
-    smallerHeap.push(val);
-  } else {
-    return;
+    res.push(biggerHeap.pop())
   }
-  // temp.forEach(item => {
-  // 	smallerHeap.push(item)
-  // })
-  console.log(temp);
+  if(res.length > 0) {
+    smallerHeap.push(res[0])
+  }
 };
 
-const getMedian = (minHeap, maxHeap) => {
-  const biggerHeap = maxHeap.size() > minHeap.size() ? maxHeap : minHeap;
-  const smallerHeap = maxHeap.size() > minHeap.size() ? minHeap : maxHeap;
+function getMedian(lowers, highers) {
+  const biggerHeap = lowers.size() > highers.size() ? lowers : highers;
+  const smallerHeap = lowers.size() > highers.size() ? highers : lowers;
   if (biggerHeap.size() === smallerHeap.size()) {
     return (biggerHeap.peek() + smallerHeap.peek()) / 2;
   }
@@ -188,20 +180,30 @@ const getMedian = (minHeap, maxHeap) => {
 
 function findMedian(arr) {
   // Write your code here
-  const maxHeap = new MaxHeap();
-  const minHeap = new MinHeap();
+  const highers = new MaxHeap();
+  const lowers = new MinHeap();
   const medians = [];
-  let idx = 0;
 
-  for (const value of arr) {
-    addNumber(value, maxHeap, minHeap);
-    rebalance(maxHeap, minHeap);
-    medians[idx] = getMedian(maxHeap, minHeap);
-    idx++;
+  for (const idx in arr) {
+    const item = arr[idx];
+    addNumber(item, lowers, highers);
+    rebalance(lowers, highers);
+    medians[idx] = getMedian(highers, lowers);
   }
 
   return medians;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 // These are the tests we use to determine if the solution is correct.
 // You can add your own at the bottom.
