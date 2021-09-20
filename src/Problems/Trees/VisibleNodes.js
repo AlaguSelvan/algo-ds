@@ -8,17 +8,34 @@ function TreeNode(val) {
 
 // Add any helper functions you may need here
 
+// function visibleNodes(root) {
+//   // Write your code here
+//   const output = [];
+//   const traverse = (root, array = [], depth = 0) => {
+//     if (!root) return output;
+//     if (!array[depth]) array[depth] = root.val;
+//     traverse(root.left, array, depth + 1);
+//     traverse(root.right, array, depth + 1);
+//   };
+//   traverse(root, output);
+//   return output.length;
+// }
+
 function visibleNodes(root) {
   // Write your code here
-  const output = [];
-  const traverse = (root, array = [], depth = 0) => {
-    if (!root) return output;
-    if (!array[depth]) array[depth] = root.val;
-    traverse(root.left, array, depth + 1);
-    traverse(root.right, array, depth + 1);
-  };
-  traverse(root, output);
-  return output.length;
+  const queue = [root];
+  const visited = [];
+  queue.push(this.root);
+  let depth = 0;
+  while (queue.length) {
+    const node = queue.shift();
+    visited[depth] = node.val;
+    depth++;
+    if (node.left) queue.push(node.left);
+    if (node.right) queue.push(node.right);
+  }
+  console.log(visited)
+  return visited.length;
 }
 
 // These are the tests we use to determine if the solution is correct.

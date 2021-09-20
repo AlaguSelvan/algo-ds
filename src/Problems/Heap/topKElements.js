@@ -1,6 +1,13 @@
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+
+
 class Node {
-  constructor(val, frequency) {
-    this.val = val;
+  constructor(idx, frequency) {
+    this.idx = idx;
     this.frequency = frequency;
     // this.insertTime = Date.now();
   }
@@ -26,8 +33,8 @@ class PriorityQueue {
   }
 
   // Method: heap.insert
-  enqueue(val, frequency) {
-    const newNode = new Node(val, frequency);
+  enqueue(idx, frequency) {
+    const newNode = new Node(idx, frequency);
     this.arr.push(newNode);
     this.bubble();
   }
@@ -77,15 +84,22 @@ class PriorityQueue {
   }
 }
 
-const priorityQueue = new PriorityQueue();
 
-priorityQueue.enqueue('coding', 99);
-priorityQueue.enqueue('food', 70);
-priorityQueue.enqueue('gym', 50);
-priorityQueue.enqueue('studies', 10);
-priorityQueue.enqueue('gaming', 4);
-priorityQueue.enqueue('sleep', 11);
+var topKFrequent = function(nums, k) {
+  let freqMap = new Map();
+  nums.map((num, n) => freqMap.has(num) ? freqMap.set(num, freqMap.get(num) + 1) : freqMap.set(num, 1));
+  const pq = new PriorityQueue();
+  for(let [key, idx] of freqMap) {
+    pq.enqueue(key, idx)
+  }
+  let ar = [];
+  while(k--) {
+    const v = pq.dequeue().idx;
+    ar.push(v)
+  }
+  return ar;
+};
 
-priorityQueue.dequeue();
 
-console.log(priorityQueue);
+const op = topKFrequent([5,3,1,1,1,3,73,1], 2);
+console.log(op)
